@@ -6,7 +6,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
 export default [
   {
-    ignores: ['dist/'],
+    ignores: ['dist/', 'node_modules', 'bin', 'data'],
   },
   { files: ['src/**/*.{js,ts}'] },
   { files: ['**/*.js'], languageOptions: { sourceType: 'commonjs' } },
