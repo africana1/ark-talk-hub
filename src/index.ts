@@ -1,7 +1,15 @@
-import { createServer } from './server';
+import { createServer as app } from './server';
+import * as http from 'http';
 
-const server = createServer();
+//const NAMESPACE = 'Server';
 
-server.listen(3000, () => {
-  console.log(`api running on 3000`);
+//** create http server */
+const httpServer: http.Server = http.createServer(app);
+
+//const PORT = config.server.port || 4400;
+const PORT = 5000;
+
+httpServer.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+  //logging.info(NAMESPACE, `Server is running ${config.server.hostname}:${PORT}`);
 });
