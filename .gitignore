@@ -17,3 +17,4 @@ yarn-error.log*
 .yarn-integrity
 bin
 data
+.DS_Store
