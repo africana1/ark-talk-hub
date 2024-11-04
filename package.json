@@ -27,7 +27,8 @@
     "prettier:fix": "prettier --write **/*.ts",
     "prepare": "husky",
     "commit": "git add -A && cz",
-    "prisma:generate": "npx prisma generate",
+    "prisma:db:push": "npx prisma db push",
+    "prisma:db:pull": "npx prisma db pull",
     "prisma:migrate": "npx prisma migrate dev",
     "prisma:studio": "npx prisma studio"
   },
@@ -40,6 +41,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.8.4",
     "commitizen": "^4.3.1",
