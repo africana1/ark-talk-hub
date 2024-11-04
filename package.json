@@ -27,6 +27,7 @@
     "prettier:fix": "prettier --write **/*.ts",
     "prepare": "husky",
     "commit": "git add -A && cz",
+    "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev",
     "prisma:studio": "npx prisma studio"
   },
