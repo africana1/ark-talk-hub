@@ -9,7 +9,27 @@ export class SpeakerService {
     this.speakerRepository = speakerRepository;
   }
 
+  async isPhoneNumberTaken(phoneNumber: string): Promise<boolean> {
+    const existingSpeaker = await this.speakerRepository.findByPhone(phoneNumber);
+    return existingSpeaker !== null;
+  }
+
+  async isEmailTaken(email: string): Promise<boolean> {
+    const existingSpeaker = await this.speakerRepository.findByEmail(email);
+    return existingSpeaker !== null;
+  }
+
   async createSpeaker(data: NewSpeaker): Promise<Speaker> {
+    const { email, phone } = data;
+
+    if (await this.isPhoneNumberTaken(phone)) {
+      throw new Error('Email or phone number unavailable');
+    }
+
+    if (await this.isEmailTaken(email)) {
+      throw new Error('Email or phone number unavailable');
+    }
+
     return this.speakerRepository.create(data);
   }
 
