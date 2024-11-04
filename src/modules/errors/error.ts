@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import { Prisma } from '@prisma/client';
 import { StatusCodes as httpStatus } from 'http-status-codes';
 import config from '../config/config';
 import { logger } from '../logger';
@@ -12,10 +11,7 @@ interface AppError extends Error {
 export const errorConverter = (err: AppError, _req: Request, _res: Response, next: NextFunction) => {
   let error = err;
   if (!(error instanceof ApiError)) {
-    const statusCode =
-      error.statusCode || error instanceof Prisma.PrismaClientKnownRequestError
-        ? httpStatus.BAD_REQUEST
-        : httpStatus.INTERNAL_SERVER_ERROR;
+    const statusCode = httpStatus.INTERNAL_SERVER_ERROR;
     const message: string = error.message || `${httpStatus[statusCode]}`;
     error = new ApiError(statusCode, message, false, err.stack);
   }
