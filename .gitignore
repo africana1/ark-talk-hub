@@ -18,3 +18,4 @@ yarn-error.log*
 bin
 data
 .DS_Store
+tsconfig.tsbuildinfo
