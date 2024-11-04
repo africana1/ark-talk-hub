@@ -14,14 +14,14 @@ export const createSpeaker = catchAsync(async (req: Request, res: Response) => {
 
 export const getSpeakers = catchAsync(async (_req: Request, res: Response) => {
   const speakers = await speakerService.getSpeakers();
-  res.status(httpStatus.OK).json(speakers);
+  res.status(httpStatus.OK).json({ length: speakers.length, data: speakers });
 });
 
 export const getSpeakerById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const speaker = await speakerService.getSpeakerById(id);
   if (speaker) {
-    res.status(httpStatus.OK).json(speaker);
+    res.status(httpStatus.OK).json({ data: speaker });
   } else {
     res.status(404).json({ error_MSGERROR_MSG: ERROR_MSG.SPEAKER_NOT_FOUND });
   }
@@ -33,7 +33,7 @@ export const updateSpeaker = catchAsync(async (req: Request, res: Response) => {
 
   const speaker = await speakerService.updateSpeaker(id, data);
   if (speaker) {
-    res.status(httpStatus.OK).json(speaker);
+    res.status(httpStatus.OK).json({ data: speaker });
   } else {
     res.status(httpStatus.BAD_REQUEST).json({ error_MSGERROR_MSG: ERROR_MSG.SPEAKER_NOT_FOUND });
   }

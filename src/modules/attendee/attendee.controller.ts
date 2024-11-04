@@ -9,7 +9,7 @@ const attendeeService = new AttendeeService(new AttendeeRepository());
 
 export const createAttendee = catchAsync(async (req: Request, res: Response) => {
   const attendee = await attendeeService.createAttendee(req.body);
-  res.status(httpStatus.CREATED).json(attendee);
+  res.status(httpStatus.CREATED).json({ data: attendee });
 });
 
 export const getAttendees = catchAsync(async (_req: Request, res: Response) => {
