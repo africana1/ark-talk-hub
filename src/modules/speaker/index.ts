@@ -3,8 +3,8 @@ import { ISpeakerRepository } from './speaker.interface';
 import { SpeakerRepository } from './speaker.repository';
 import { SpeakerService } from './speaker.service';
 import * as speakerController from './speaker.controller';
+import * as speakerValidation from './speaker.validation';
 import speakerRoute from './speaker.route';
-//import * as speakerValidation from './speaker.validation';
 
 export {
   Speaker,
@@ -15,5 +15,5 @@ export {
   SpeakerService,
   speakerController,
   speakerRoute,
-  //speakerValidation,
+  speakerValidation,
 };

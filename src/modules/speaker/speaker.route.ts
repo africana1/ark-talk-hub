@@ -1,12 +1,16 @@
 import express from 'express';
 import * as speakerController from './speaker.controller';
-
+import * as speakerValidation from './speaker.validation';
+import { validate } from '../validation';
 const router = express.Router();
 
-router.post('/', speakerController.createSpeaker);
-router.get('/', speakerController.getSpeakers);
-router.get('/:id', speakerController.getSpeakerById);
-router.patch('/:id', speakerController.updateSpeaker);
-router.delete('/:id', speakerController.deleteSpeaker);
+router
+  .get('/', validate(speakerValidation.getSpeakers), speakerController.getSpeakers)
+  .post('/', validate(speakerValidation.createSpeaker), speakerController.createSpeaker);
+
+router
+  .get('/:id', validate(speakerValidation.getSpeaker), speakerController.getSpeakerById)
+  .patch('/:id', validate(speakerValidation.updateSpeaker), speakerController.updateSpeaker)
+  .delete('/:id', validate(speakerValidation.deleteSpeaker), speakerController.deleteSpeaker);
 
 export default router;
