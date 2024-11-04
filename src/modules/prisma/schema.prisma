@@ -14,9 +14,8 @@ enum crdb_internal_region {
 
 model Admin {
   id        String   @id @default(uuid())
-  username  String
-  password  String
   email     String   @unique
+  password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -53,16 +52,27 @@ model Talk {
 
 model Attendee {
   id             String   @id @default(uuid())
-  firstname      String
-  lastname       String
-  email          String
+  firstName      String
+  lastName       String
+  phone          String?  @unique
+  email          String   @unique
   password       String
-  phone          String?
-  profession     String
-  registrationId String
+  registrationId String   @unique
   talk           Talk[]
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
   @@index([id])
+}
+
+model Token {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  user      String
+  type      String
+  expires   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([id, token])
 }
