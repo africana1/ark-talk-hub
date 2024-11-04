@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+enum crdb_internal_region {
+  aws_eu_central_1 @map("aws-eu-central-1")
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  username  String
+  password  String
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([id])
+}
+
+model Speaker {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String   @unique
+  phone     String   @unique
+  talk      Talk[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([id])
+}
+
+model Talk {
+  id         String     @id @default(uuid())
+  topicTitle String     @unique
+  date       DateTime
+  time       String
+  location   String
+  attendee   Attendee[]
+  speaker    Speaker    @relation(fields: [id], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([id])
+}
+
+model Attendee {
+  id             String   @id @default(uuid())
+  firstname      String
+  lastname       String
+  email          String
+  password       String
+  phone          String?
+  profession     String
+  registrationId String
+  talk           Talk[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([id])
+}
