@@ -12,7 +12,13 @@
     "schema": "src/modules/prisma/schema.prisma"
   },
   "scripts": {
-    "dev": " cross-env NODE_ENV=development nodemon",
+    "start": "pm2 start ecosystem.config.json --no-daemon",
+    "start:dev": "cross-env NODE_ENV=development nodemon",
+    "start:test": "cross-env NODE_ENV=test nodemon",
+    "start:prod": "cross-env NODE_ENV=production node dist/index.js",
+    "start:build": "tsc --build && pm2 start ecosystem.config.json --no-daemon",
+    "compile": "tsc --build",
+    "compile:watch": "tsc --build --watch",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "lint": "eslint .",
@@ -20,7 +26,9 @@
     "prettier": "prettier --check **/*.ts",
     "prettier:fix": "prettier --write **/*.ts",
     "prepare": "husky",
-    "commit": "git add -A && cz"
+    "commit": "git add -A && cz",
+    "prisma:migrate": "npx prisma migrate dev",
+    "prisma:studio": "npx prisma studio"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
