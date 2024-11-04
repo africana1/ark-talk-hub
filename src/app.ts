@@ -7,6 +7,7 @@ import { rateLimit } from './modules/utils';
 import { morgan } from './modules/logger';
 import { StatusCodes as httpStatus } from 'http-status-codes';
 import { ApiError, errorConverter, errorHandler } from './modules/errors';
+import routes from './routes';
 
 const app: Application = express();
 
@@ -40,6 +41,9 @@ if (config.env === 'production') {
 app.get('/health', (req: Request, res: Response) => {
   res.json({ status: httpStatus.OK, message: 'Server online' });
 });
+
+// v1 api routes
+app.use('/v1', routes);
 
 // send back a 404 error for any unknown api request
 app.use((_req, _res, next) => {
