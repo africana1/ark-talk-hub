@@ -3,6 +3,7 @@ import config from '../modules/config/config';
 import { speakerRoute } from '../modules/speaker';
 import { attendeeRoute } from '../modules/attendee';
 import { adminRoute } from '../modules/admin';
+import { talkRoute } from '../modules/talk';
 
 const router = express.Router();
 
@@ -23,6 +24,10 @@ const defaultIRoute: IRoute[] = [
   {
     path: '/admin',
     route: adminRoute,
+  },
+  {
+    path: '/talks',
+    route: talkRoute,
   },
 ];
 
