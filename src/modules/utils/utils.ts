@@ -7,3 +7,5 @@ export const add = (a: number, b: number): number => {
 export const generateRandomId = (size = 4): string => {
   return Crypto.randomBytes(size).toString('hex').slice(0, size);
 };
+
+export const errorMessage = (errorType: string): string => `${errorType} not found`;
