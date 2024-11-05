@@ -36,7 +36,7 @@ export const updateSpeaker = {
       firstName: Joi.string(),
       lastName: Joi.string(),
       email: Joi.string().email(),
-      phoneNumber: Joi.string(),
+      phone: Joi.string(),
     })
     .min(1),
 };

@@ -1,7 +1,7 @@
 import { IAttendeeRepository } from './attendee.interface';
 import { AttendeeRepository } from './attendee.repository';
 import { NewAttendee, Attendee, UpdateAttendee } from './attendee.types';
-import { generateRandomId } from '../utils/utils';
+import { generateRandomId } from '../utils/';
 
 export class AttendeeService {
   private attendeeRepository = new AttendeeRepository();
@@ -24,11 +24,11 @@ export class AttendeeService {
     const { email, phone } = data;
 
     if (await this.isPhoneNumberTaken(phone as string)) {
-      throw new Error('Email or phone number unavailable');
+      throw new Error('Email or phone number already taken');
     }
 
     if (await this.isEmailTaken(email)) {
-      throw new Error('Email or phone number unavailable');
+      throw new Error('Email or phone number already taken');
     }
 
     return this.attendeeRepository.create({ ...data, registrationId: generateRandomId(10).toString().toUpperCase() });

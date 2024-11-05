@@ -2,6 +2,7 @@ import express, { Router } from 'express';
 import config from '../modules/config/config';
 import { speakerRoute } from '../modules/speaker';
 import { attendeeRoute } from '../modules/attendee';
+import { adminRoute } from '../modules/admin';
 
 const router = express.Router();
 
@@ -18,6 +19,10 @@ const defaultIRoute: IRoute[] = [
   {
     path: '/attendees',
     route: attendeeRoute,
+  },
+  {
+    path: '/admin',
+    route: adminRoute,
   },
 ];
 
