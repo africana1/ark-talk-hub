@@ -3,11 +3,13 @@ import serverless from 'serverless-http';
 import cors from 'cors';
 import compression from 'compression';
 import helmet from 'helmet';
+import passport from 'passport';
 import config from './modules/config/config';
 import { rateLimit } from './modules/utils';
 import { morgan } from './modules/logger';
 import { StatusCodes as httpStatus } from 'http-status-codes';
 import { ApiError, errorConverter, errorHandler } from './modules/errors';
+import { jwtStrategy } from './modules/auth';
 import routes from './routes';
 
 const app: Application = express();
@@ -42,6 +44,10 @@ if (config.env === 'production') {
 app.get('/health', (req: Request, res: Response) => {
   res.json({ status: httpStatus.OK, message: 'Server online' });
 });
+
+// Initialize passport
+passport.use(jwtStrategy);
+app.use(passport.initialize());
 
 // v1 api routes
 app.use('/v1', routes);
