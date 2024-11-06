@@ -5,10 +5,6 @@ import { NewSpeaker, Speaker, UpdateSpeaker } from './speaker.types';
 export class SpeakerService {
   private speakerRepository = new SpeakerRepository();
 
-  constructor(speakerRepository: ISpeakerRepository) {
-    this.speakerRepository = speakerRepository;
-  }
-
   async isPhoneNumberTaken(phoneNumber: string): Promise<boolean> {
     const existingSpeaker = await this.speakerRepository.findByPhone(phoneNumber);
     return existingSpeaker !== null;

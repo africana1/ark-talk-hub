@@ -4,18 +4,18 @@ import { ITokenRepository, NewToken } from './token.interface';
 const { token } = new PrismaClient();
 
 export class TokenRepository implements ITokenRepository {
-  async create(data: NewToken): Promise<Token> {
+  async saveToken(data: NewToken): Promise<Token> {
     return token.create({ data });
   }
 
-  async findById(id: string): Promise<Token | null> {
+  async verifyToken(id: string): Promise<Token | null> {
     return token.findUnique({
       where: { id },
     });
   }
 
   async delete(id: string): Promise<void> {
-    await token.delete({
+    await token.deleteMany({
       where: { id },
     });
   }

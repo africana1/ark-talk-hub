@@ -16,6 +16,7 @@ model Admin {
   id        String   @id @default(uuid())
   email     String   @unique
   password  String
+  role      String   @default("admin")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -36,17 +37,15 @@ model Speaker {
 }
 
 model Talk {
-  id         String   @id @default(uuid())
-  topicTitle String   @unique
+  id         String     @id @default(uuid())
+  topicTitle String     @unique
   date       DateTime
   time       String
   location   String
-  speaker    Speaker  @relation(fields: [id], references: [id])
-
-  attendee Attendee[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  speaker    Speaker    @relation(fields: [id], references: [id])
+  attendee   Attendee[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 
   @@index([id])
 }
@@ -59,6 +58,7 @@ model Attendee {
   email          String   @unique
   password       String
   registrationId String   @unique
+  role           String   @default("attendee")
   talk           Talk[]
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt

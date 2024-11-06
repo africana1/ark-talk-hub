@@ -2,7 +2,7 @@ import Joi from 'joi';
 import { uuid } from '../validation';
 import { Admin, NewAdmin, UpdateAdmin } from './admin.types';
 
-export const createAdmin = {
+export const signUpAndLogin = {
   body: Joi.object<NewAdmin>().keys({
     email: Joi.string().email().required(),
     password: Joi.string().required(),

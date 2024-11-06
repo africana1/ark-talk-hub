@@ -1,5 +1,3 @@
-import config from '../config/config';
-
 class ApiError extends Error {
   statusCode: number;
 

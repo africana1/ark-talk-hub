@@ -1,28 +1,52 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Attendee as AttendeeModel } from '@prisma/client';
 import { IAttendeeRepository } from './attendee.interface';
 import { NewAttendee, Attendee, UpdateAttendee } from './attendee.types';
 
 const { attendee } = new PrismaClient();
 
 export class AttendeeRepository implements IAttendeeRepository {
-  async create(data: NewAttendee): Promise<Attendee> {
+  async create(data: NewAttendee): Promise<AttendeeModel> {
     return attendee.create({ data });
   }
 
   async findAll(): Promise<Attendee[]> {
     return attendee.findMany({
-      include: { talk: true },
+      select: {
+        id: true,
+        email: true,
+        phone: true,
+        role: true,
+        registrationId: true,
+        firstName: true,
+        lastName: true,
+        password: false,
+        createdAt: true,
+        updatedAt: false,
+        talk: true,
+      },
     });
   }
 
   async findById(id: string): Promise<Attendee | null> {
     return attendee.findUnique({
       where: { id },
-      include: { talk: true },
+      select: {
+        id: true,
+        email: true,
+        phone: true,
+        role: true,
+        registrationId: true,
+        firstName: true,
+        lastName: true,
+        password: false,
+        createdAt: true,
+        updatedAt: false,
+        talk: true,
+      },
     });
   }
 
-  async findByEmail(email: string): Promise<Attendee | null> {
+  async findByEmail(email: string): Promise<AttendeeModel | null> {
     return attendee.findUnique({
       where: { email },
     });

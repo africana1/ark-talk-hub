@@ -1,16 +1,21 @@
 import { Request, Response } from 'express';
-import { AdminRepository } from './admin.repository';
 import { AdminService } from './admin.service';
 import { catchAsync } from '../utils';
 import { StatusCodes as httpStatus } from 'http-status-codes';
 import { errorMessage } from '../utils/';
-import { ERROR_TYPE } from '../utils/enums';
+import { ROLE_TYPE } from '../utils/enums';
 
-const adminService = new AdminService(new AdminRepository());
+const adminService = new AdminService();
 
 export const createAdmin = catchAsync(async (req: Request, res: Response) => {
   const admin = await adminService.createAdmin(req.body);
-  res.status(httpStatus.CREATED).json({ status: httpStatus.CREATED, data: admin });
+  const adminData = {
+    id: admin.id,
+    email: admin.email,
+    role: admin.role,
+    createdAt: admin.createdAt,
+  };
+  res.status(httpStatus.CREATED).json({ status: httpStatus.CREATED, data: adminData });
 });
 
 export const getAdmins = catchAsync(async (_req: Request, res: Response) => {
@@ -24,7 +29,7 @@ export const getAdminById = catchAsync(async (req: Request, res: Response) => {
   if (admin) {
     res.status(httpStatus.OK).json({ status: httpStatus.OK, data: admin });
   } else {
-    res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ERROR_TYPE.ADMIN) });
+    res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ROLE_TYPE.ADMIN) });
   }
 });
 
@@ -36,7 +41,7 @@ export const updateAdmin = catchAsync(async (req: Request, res: Response) => {
   if (admin) {
     res.status(httpStatus.OK).json({ status: httpStatus.OK, data: admin });
   } else {
-    res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ERROR_TYPE.ADMIN) });
+    res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ROLE_TYPE.ADMIN) });
   }
 });
 
@@ -47,6 +52,6 @@ export const deleteAdmin = catchAsync(async (req: Request, res: Response) => {
     await adminService.deleteAdmin(id);
     res.status(httpStatus.NO_CONTENT).send();
   } else {
-    res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ERROR_TYPE.ADMIN) });
+    res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ROLE_TYPE.ADMIN) });
   }
 });

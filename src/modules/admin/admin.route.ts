@@ -1,12 +1,12 @@
 import express from 'express';
 import * as adminController from './admin.controller';
 import * as adminValidation from './admin.validation';
+import { authenticateJWT, isAdmin } from '../auth/auth.middleware';
 import { validate } from '../validation';
 const router = express.Router();
 
-router
-  .get('/', validate(adminValidation.getAdmins), adminController.getAdmins)
-  .post('/', validate(adminValidation.createAdmin), adminController.createAdmin);
+router.use(authenticateJWT, isAdmin);
+router.get('/', validate(adminValidation.getAdmins), adminController.getAdmins);
 
 router
   .get('/:id', validate(adminValidation.getAdmin), adminController.getAdminById)

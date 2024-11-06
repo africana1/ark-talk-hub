@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Admin as AdminModel } from '@prisma/client';
 import { IAdminRepository } from './admin.interface';
 import { NewAdmin, Admin, UpdateAdmin } from './admin.types';
 
@@ -10,16 +10,33 @@ export class AdminRepository implements IAdminRepository {
   }
 
   async findAll(): Promise<Admin[]> {
-    return admin.findMany();
+    return admin.findMany({
+      select: {
+        id: true,
+        email: true,
+        role: true,
+        password: false,
+        createdAt: true,
+        updatedAt: false,
+      },
+    });
   }
 
   async findById(id: string): Promise<Admin | null> {
     return admin.findUnique({
       where: { id },
+      select: {
+        id: true,
+        email: true,
+        role: true,
+        password: false,
+        createdAt: true,
+        updatedAt: false,
+      },
     });
   }
 
-  async findByEmail(email: string): Promise<Admin | null> {
+  async findByEmail(email: string): Promise<AdminModel | null> {
     return admin.findUnique({
       where: { email },
     });
