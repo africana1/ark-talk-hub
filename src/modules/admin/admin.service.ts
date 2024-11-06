@@ -1,14 +1,9 @@
-import { IAdminRepository } from './admin.interface';
+import bcrypt from 'bcryptjs';
 import { AdminRepository } from './admin.repository';
 import { NewAdmin, Admin, UpdateAdmin } from './admin.types';
-import { generateRandomId } from '../utils/utils';
-
+import { generateRandomId } from '../utils/';
 export class AdminService {
   private adminRepository = new AdminRepository();
-
-  constructor(adminRepository: IAdminRepository) {
-    this.adminRepository = adminRepository;
-  }
 
   async isEmailTaken(email: string): Promise<boolean> {
     const existingAdmin = await this.adminRepository.findByEmail(email);
@@ -16,13 +11,17 @@ export class AdminService {
   }
 
   async createAdmin(data: NewAdmin): Promise<Admin> {
-    const { email } = data;
+    const { email, password } = data;
 
     if (await this.isEmailTaken(email)) {
       throw new Error('Email already taken');
     }
-
-    return this.adminRepository.create(data);
+    // hash password
+    const hashedPassword = await bcrypt.hash(password, 8);
+    return this.adminRepository.create({
+      ...data,
+      password: hashedPassword,
+    });
   }
 
   async getAdmins(): Promise<Admin[]> {

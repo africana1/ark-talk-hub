@@ -5,10 +5,6 @@ import { NewTalk, Talk, UpdateTalk } from './talk.types';
 export class TalkService {
   private talkRepository = new TalkRepository();
 
-  constructor(talkRepository: ITalkRepository) {
-    this.talkRepository = talkRepository;
-  }
-
   async createTalk(data: NewTalk): Promise<Talk> {
     return this.talkRepository.create(data);
   }

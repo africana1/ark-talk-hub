@@ -2,8 +2,11 @@ import express from 'express';
 import * as speakerController from './speaker.controller';
 import * as speakerValidation from './speaker.validation';
 import { validate } from '../validation';
+import { authenticateJWT, isAdmin } from '../auth/auth.middleware';
+
 const router = express.Router();
 
+router.use(authenticateJWT, isAdmin);
 router
   .get('/', validate(speakerValidation.getSpeakers), speakerController.getSpeakers)
   .post('/', validate(speakerValidation.createSpeaker), speakerController.createSpeaker);

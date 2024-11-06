@@ -1,16 +1,25 @@
 import { Request, Response } from 'express';
-import { AttendeeRepository } from './attendee.repository';
 import { AttendeeService } from './attendee.service';
 import { catchAsync } from '../utils';
 import { StatusCodes as httpStatus } from 'http-status-codes';
 import { errorMessage } from '../utils/';
-import { ERROR_TYPE } from '../utils/enums';
+import { ROLE_TYPE } from '../utils/enums';
 
-const attendeeService = new AttendeeService(new AttendeeRepository());
+const attendeeService = new AttendeeService();
 
 export const createAttendee = catchAsync(async (req: Request, res: Response) => {
   const attendee = await attendeeService.createAttendee(req.body);
-  res.status(httpStatus.CREATED).json({ status: httpStatus.CREATED, data: attendee });
+  const attendeeData = {
+    id: attendee.id,
+    firstName: attendee.firstName,
+    lastName: attendee.lastName,
+    email: attendee.email,
+    phone: attendee.phone,
+    role: attendee.role,
+    registrationId: attendee.registrationId,
+    createdAt: attendee.createdAt,
+  };
+  res.status(httpStatus.CREATED).json({ status: httpStatus.CREATED, data: attendeeData });
 });
 
 export const getAttendees = catchAsync(async (_req: Request, res: Response) => {
@@ -26,7 +35,7 @@ export const getAttendeeById = catchAsync(async (req: Request, res: Response) =>
   } else {
     res
       .status(httpStatus.BAD_REQUEST)
-      .json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ERROR_TYPE.ATTENDEE) });
+      .json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ROLE_TYPE.ATTENDEE) });
   }
 });
 
@@ -40,7 +49,7 @@ export const updateAttendee = catchAsync(async (req: Request, res: Response) => 
   } else {
     res
       .status(httpStatus.BAD_REQUEST)
-      .json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ERROR_TYPE.ATTENDEE) });
+      .json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ROLE_TYPE.ATTENDEE) });
   }
 });
 
@@ -53,6 +62,6 @@ export const deleteAttendee = catchAsync(async (req: Request, res: Response) => 
   } else {
     res
       .status(httpStatus.BAD_REQUEST)
-      .json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ERROR_TYPE.ATTENDEE) });
+      .json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ROLE_TYPE.ATTENDEE) });
   }
 });

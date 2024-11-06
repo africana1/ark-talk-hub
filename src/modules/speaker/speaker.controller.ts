@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
-import { SpeakerRepository } from './speaker.repository';
 import { SpeakerService } from './speaker.service';
 import { catchAsync } from '../utils';
 import { StatusCodes as httpStatus } from 'http-status-codes';
 import { errorMessage } from '../utils/';
-import { ERROR_TYPE } from '../utils/enums';
+import { ROLE_TYPE } from '../utils/enums';
 
-const speakerService = new SpeakerService(new SpeakerRepository());
+const speakerService = new SpeakerService();
 
 export const createSpeaker = catchAsync(async (req: Request, res: Response) => {
   const speaker = await speakerService.createSpeaker(req.body);
@@ -24,9 +23,7 @@ export const getSpeakerById = catchAsync(async (req: Request, res: Response) => 
   if (speaker) {
     res.status(httpStatus.OK).json({ status: httpStatus.OK, data: speaker });
   } else {
-    res
-      .status(httpStatus.BAD_REQUEST)
-      .json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ERROR_TYPE.SPEAKER) });
+    res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ROLE_TYPE.SPEAKER) });
   }
 });
 
@@ -38,9 +35,7 @@ export const updateSpeaker = catchAsync(async (req: Request, res: Response) => {
   if (speaker) {
     res.status(httpStatus.OK).json({ status: httpStatus.OK, data: speaker });
   } else {
-    res
-      .status(httpStatus.BAD_REQUEST)
-      .json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ERROR_TYPE.SPEAKER) });
+    res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ROLE_TYPE.SPEAKER) });
   }
 });
 
@@ -51,8 +46,6 @@ export const deleteSpeaker = catchAsync(async (req: Request, res: Response) => {
     await speakerService.deleteSpeaker(id);
     res.status(httpStatus.NO_CONTENT).send();
   } else {
-    res
-      .status(httpStatus.BAD_REQUEST)
-      .json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ERROR_TYPE.SPEAKER) });
+    res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, error: errorMessage(ROLE_TYPE.SPEAKER) });
   }
 });

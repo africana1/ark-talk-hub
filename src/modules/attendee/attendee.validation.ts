@@ -12,6 +12,13 @@ export const createAttendee = {
   }),
 };
 
+export const attendeeLogin = {
+  body: Joi.object<NewAttendee>().keys({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  }),
+};
+
 export const getAttendees = {
   query: Joi.object().keys({
     role: Joi.string(),

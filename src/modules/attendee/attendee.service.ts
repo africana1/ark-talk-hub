@@ -1,14 +1,10 @@
-import { IAttendeeRepository } from './attendee.interface';
+import bcrypt from 'bcryptjs';
 import { AttendeeRepository } from './attendee.repository';
 import { NewAttendee, Attendee, UpdateAttendee } from './attendee.types';
 import { generateRandomId } from '../utils/';
 
 export class AttendeeService {
   private attendeeRepository = new AttendeeRepository();
-
-  constructor(attendeeRepository: IAttendeeRepository) {
-    this.attendeeRepository = attendeeRepository;
-  }
 
   async isPhoneNumberTaken(phone: string): Promise<boolean> {
     const existingAttendee = await this.attendeeRepository.findByPhone(phone);
@@ -21,7 +17,7 @@ export class AttendeeService {
   }
 
   async createAttendee(data: NewAttendee): Promise<Attendee> {
-    const { email, phone } = data;
+    const { email, phone, password } = data;
 
     if (await this.isPhoneNumberTaken(phone as string)) {
       throw new Error('Email or phone number already taken');
@@ -30,8 +26,13 @@ export class AttendeeService {
     if (await this.isEmailTaken(email)) {
       throw new Error('Email or phone number already taken');
     }
-
-    return this.attendeeRepository.create({ ...data, registrationId: generateRandomId(10).toString().toUpperCase() });
+    // hash password
+    const hashedPassword = await bcrypt.hash(password, 8);
+    return this.attendeeRepository.create({
+      ...data,
+      password: hashedPassword,
+      registrationId: generateRandomId(12).toString().toUpperCase(),
+    });
   }
 
   async getAttendees(): Promise<Attendee[]> {
@@ -40,6 +41,10 @@ export class AttendeeService {
 
   async getAttendeeById(id: string): Promise<Attendee | null> {
     return this.attendeeRepository.findById(id);
+  }
+
+  async getAttendeeByEmail(email: string): Promise<Attendee | null> {
+    return this.attendeeRepository.findByEmail(email);
   }
 
   async updateAttendee(id: string, data: UpdateAttendee): Promise<Attendee | null> {
