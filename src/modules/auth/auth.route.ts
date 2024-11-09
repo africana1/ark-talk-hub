@@ -7,12 +7,12 @@ import { attendeeValidation } from '../attendee';
 
 const router = express.Router();
 
-router.post('/register', validate(attendeeValidation.createAttendee), authController.registerAttendee);
-router.post('/login', validate(attendeeValidation.attendeeLogin), authController.attendeeLogin);
-router.post('/login-admin', validate(adminValidation.signUpAndLogin), authController.adminLogin);
+router.post('/attendee-sign-up', validate(attendeeValidation.createAttendee), authController.registerAttendee);
+router.post('/attendee-sign-in', validate(attendeeValidation.attendeeLogin), authController.attendeeLogin);
+router.post('/admin-sign-in', validate(adminValidation.signUpAndLogin), authController.adminLogin);
 //router.post('/logout', authController.logout);
 
 router.use(authenticateJWT, isAdmin);
-router.post('/register-admin', validate(adminValidation.signUpAndLogin), authController.registerAdmin);
+router.post('/admin-sign-up', validate(adminValidation.signUpAndLogin), authController.registerAdmin);
 
 export default router;

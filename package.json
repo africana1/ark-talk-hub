@@ -1,7 +1,7 @@
 {
   "name": "ark-talk-hub",
   "version": "1.0.0",
-  "description": "Ark TalkHub is a conference platform by Ark Store, designed to facilitate real-time attendee engagement through talk registrations, live chats, and expert-led discussions in logistics, supply chain, and inventory management",
+  "description": "Ark Talk Hub is a conference platform by Ark Store, designed to facilitate real-time attendee engagement through talk registrations, live chats, and expert-led discussions in logistics, supply chain, and inventory management",
   "main": "dist/index.js",
   "author": "africana",
   "license": "MIT",
@@ -31,12 +31,12 @@
     "prisma:studio": "npx prisma studio",
     "build::offline-lin": "run-s remove-lin build::ts offline",
     "build::offline-win": "run-s build::ts offline",
-    "dev": "run-p build::ts watch::* offline",
+    "dev": "run-p build:ts watch:* offline",
     "deploy": "sls deploy",
     "offline": "sls offline --httpPort 5500",
-    "build::ts": "tsc",
-    "build::deploy": "run-s remove build::ts deploy",
-    "watch::ts": "tsc --watch",
+    "build:ts": "tsc",
+    "build:deploy": "run-s remove build::ts deploy",
+    "watch:ts": "tsc --watch",
     "remove-lin": "rm -rf ./dist",
     "remove-win": "rmdir /s/q dist"
   },
@@ -68,7 +68,7 @@
     "nodemon": "^3.1.7",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.3.3",
-    "prisma": "^5.21.1",
+    "prisma": "^5.22.0",
     "serverless": "^3.21.0",
     "serverless-offline": "^9.1.2",
     "ts-jest": "^29.2.5",
@@ -80,7 +80,7 @@
     "eslint": "^9.13.0"
   },
   "dependencies": {
-    "@prisma/client": "^5.21.1",
+    "@prisma/client": "^5.22.0",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "cors": "^2.8.5",

@@ -11,14 +11,14 @@ export class TalkRepository implements ITalkRepository {
 
   async findAll(): Promise<Talk[]> {
     return talk.findMany({
-      include: { attendee: true },
+      include: { appliedTalk: true },
     });
   }
 
   async findById(id: string): Promise<Talk | null> {
     return talk.findUnique({
       where: { id },
-      include: { attendee: true },
+      include: { appliedTalk: true },
     });
   }
 

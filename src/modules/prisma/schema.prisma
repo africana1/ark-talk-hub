@@ -36,32 +36,45 @@ model Speaker {
   @@index([id])
 }
 
-model Talk {
-  id         String     @id @default(uuid())
-  topicTitle String     @unique
-  date       DateTime
-  time       String
-  location   String
-  speaker    Speaker    @relation(fields: [id], references: [id])
-  attendee   Attendee[]
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+model Attendee {
+  id             String        @id @default(uuid())
+  firstName      String
+  lastName       String
+  phone          String?       @unique
+  email          String        @unique
+  password       String
+  registrationId String        @unique
+  appliedTalk    AppliedTalk[]
+  role           String        @default("attendee")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 
   @@index([id])
 }
 
-model Attendee {
-  id             String   @id @default(uuid())
-  firstName      String
-  lastName       String
-  phone          String?  @unique
-  email          String   @unique
-  password       String
-  registrationId String   @unique
-  role           String   @default("attendee")
-  talk           Talk[]
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+model Talk {
+  id          String        @id @default(uuid())
+  topicTitle  String        @unique
+  date        DateTime
+  time        String
+  location    String
+  speaker     Speaker       @relation(fields: [speakerId], references: [id])
+  speakerId   String
+  appliedTalk AppliedTalk[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([id])
+}
+
+model AppliedTalk {
+  id         String   @id @default(uuid())
+  Talk       Talk     @relation(fields: [talkId], references: [id])
+  talkId     String
+  attendee   Attendee @relation(fields: [attendeeId], references: [id])
+  attendeeId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@index([id])
 }

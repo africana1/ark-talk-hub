@@ -22,7 +22,7 @@ export class AttendeeRepository implements IAttendeeRepository {
         password: false,
         createdAt: true,
         updatedAt: false,
-        talk: true,
+        appliedTalk: true,
       },
     });
   }
@@ -41,7 +41,7 @@ export class AttendeeRepository implements IAttendeeRepository {
         password: false,
         createdAt: true,
         updatedAt: false,
-        talk: true,
+        appliedTalk: true,
       },
     });
   }
