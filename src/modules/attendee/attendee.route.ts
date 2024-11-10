@@ -9,7 +9,7 @@ const router = express.Router();
 router.use(authenticateJWT);
 router.get('/:id', validate(attendeeValidation.getAttendee), attendeeController.getAttendeeById);
 
-router.use(authenticateJWT, isAdmin);
+//router.use(isAdmin);
 router.get('/', validate(attendeeValidation.getAttendees), attendeeController.getAttendees);
 router.patch('/:id', validate(attendeeValidation.updateAttendee), attendeeController.updateAttendee);
 router.delete('/:id', validate(attendeeValidation.deleteAttendee), attendeeController.deleteAttendee);

@@ -5,7 +5,8 @@ import { authenticateJWT, isAdmin } from '../auth/auth.middleware';
 import { validate } from '../validation';
 const router = express.Router();
 
-router.use(authenticateJWT, isAdmin);
+router.use(authenticateJWT);
+//router.use(isAdmin);
 router.get('/', validate(adminValidation.getAdmins), adminController.getAdmins);
 
 router

@@ -12,7 +12,8 @@ router.post('/attendee-sign-in', validate(attendeeValidation.attendeeLogin), aut
 router.post('/admin-sign-in', validate(adminValidation.signUpAndLogin), authController.adminLogin);
 //router.post('/logout', authController.logout);
 
-router.use(authenticateJWT, isAdmin);
+router.use(authenticateJWT);
+//router.use(isAdmin);
 router.post('/admin-sign-up', validate(adminValidation.signUpAndLogin), authController.registerAdmin);
 
 export default router;

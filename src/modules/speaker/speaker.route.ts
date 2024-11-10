@@ -6,7 +6,8 @@ import { authenticateJWT, isAdmin } from '../auth/auth.middleware';
 
 const router = express.Router();
 
-router.use(authenticateJWT, isAdmin);
+router.use(authenticateJWT);
+//router.use(isAdmin);
 router
   .get('/', validate(speakerValidation.getSpeakers), speakerController.getSpeakers)
   .post('/', validate(speakerValidation.createSpeaker), speakerController.createSpeaker);
