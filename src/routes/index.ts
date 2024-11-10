@@ -5,6 +5,7 @@ import { attendeeRoute } from '../modules/attendee';
 import { adminRoute } from '../modules/admin';
 import { talkRoute } from '../modules/talk';
 import { authRoute } from '../modules/auth';
+import { appliedTalkRoute } from '../modules/applied-talk';
 
 const router = express.Router();
 
@@ -29,6 +30,10 @@ const defaultIRoute: IRoute[] = [
   {
     path: '/talks',
     route: talkRoute,
+  },
+  {
+    path: '/applied-talks',
+    route: appliedTalkRoute,
   },
   {
     path: '/auth',

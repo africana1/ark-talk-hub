@@ -7,7 +7,7 @@ export interface NewTalk {
   date: Date;
   time: string;
   location: string;
-  speaker: string;
+  speakerId: string;
 }
 
 export const createTalk = {
@@ -16,7 +16,7 @@ export const createTalk = {
     date: Joi.date().required(),
     time: Joi.string().required(),
     location: Joi.string().required(),
-    speaker: Joi.string().required(),
+    speakerId: Joi.string().required(),
   }),
 };
 
@@ -45,7 +45,7 @@ export const updateTalk = {
       date: Joi.date(),
       time: Joi.string(),
       location: Joi.string(),
-      speaker: Joi.string(),
+      speakerid: Joi.string(),
     })
     .min(1),
 };
