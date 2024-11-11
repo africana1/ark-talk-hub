@@ -82,7 +82,7 @@ model AppliedTalk {
 model Token {
   id        String   @id @default(uuid())
   token     String   @unique
-  user      String
+  userId    String
   type      String
   expires   DateTime
   createdAt DateTime @default(now())

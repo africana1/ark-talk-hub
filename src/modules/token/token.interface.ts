@@ -2,7 +2,7 @@ import { Token as TokenModel } from '@prisma/client';
 
 export interface IToken {
   token: string;
-  user: string;
+  userId: string;
   type: string;
   expires: Date;
 }

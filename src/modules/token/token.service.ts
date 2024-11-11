@@ -35,7 +35,7 @@ export class TokenService {
 
     const payLoad = {
       token: refreshToken,
-      user: user.id,
+      userId: user.id,
       expires: accessTokenExpires,
       type: TOKEN_TYPE.REFRESH,
     };
