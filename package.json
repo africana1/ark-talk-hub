@@ -36,7 +36,6 @@
     "offline": "sls offline --httpPort 5500",
     "build:ts": "tsc",
     "build:deploy": "run-s remove build::ts deploy",
-    "watch:ts": "tsc --watch",
     "remove-lin": "rm -rf ./dist",
     "remove-win": "rmdir /s/q dist"
   },
