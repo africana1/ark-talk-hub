@@ -6,7 +6,7 @@
   "author": "africana",
   "license": "MIT",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=16.0.0"
   },
   "prisma": {
     "schema": "src/modules/prisma/schema.prisma"
