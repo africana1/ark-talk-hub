@@ -26,7 +26,7 @@ jobs:
 
       # Install dependencies
       - name: install dependencies
-      - run: npm ci
+        run: npm ci
 
       # Compile TypeScript to JavaScript before deployment
       - name: Compile TypeScript
