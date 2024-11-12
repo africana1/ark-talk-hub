@@ -20,7 +20,7 @@ functions:
     handler: dist/handler.handler
     reservedConcurrency: 1
     # Provision a minimum number of concurrent instances (default: 0)
-    #provisionedConcurrency: 3 # optional, Count of provisioned lambda instances
+    provisionedConcurrency: 10 # optional, Count of provisioned lambda instances
     events:
       - httpApi: '*'
 
