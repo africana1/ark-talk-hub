@@ -16,3 +16,8 @@ export const generateToken = (userId: string, expires: Date, type: string, role:
 
   return jwt.sign(payload, secret);
 };
+
+export const verifyToken = (token: string, type: string) => {
+  const secret = type === TOKEN_TYPE.ACCESS ? config.jwt.accessTokenSecret : config.jwt.refreshTokenSecret;
+  return jwt.verify(token, secret);
+};
