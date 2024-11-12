@@ -11,7 +11,7 @@ export type NewToken = Omit<TokenModel, 'id' | 'createdAt' | 'updatedAt'>;
 export type Token = Partial<TokenModel>;
 
 export interface ITokenRepository {
-  saveToken(data: NewToken): Promise<TokenModel>;
-  verifyToken(id: string): Promise<TokenModel | null>;
+  createToken(data: NewToken): Promise<TokenModel>;
+  findTokenById(id: string): Promise<TokenModel | null>;
   delete(id: string): Promise<void>;
 }

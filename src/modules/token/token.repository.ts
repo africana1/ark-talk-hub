@@ -1,14 +1,15 @@
 import { PrismaClient, Token } from '@prisma/client';
 import { ITokenRepository, NewToken } from './token.interface';
+import { TOKEN_TYPE } from '../utils/enums';
 
 const { token } = new PrismaClient();
 
 export class TokenRepository implements ITokenRepository {
-  async saveToken(data: NewToken): Promise<Token> {
+  async createToken(data: NewToken): Promise<Token> {
     return token.create({ data });
   }
 
-  async verifyToken(id: string): Promise<Token | null> {
+  async findTokenById(id: string): Promise<Token | null> {
     return token.findUnique({
       where: { id },
     });

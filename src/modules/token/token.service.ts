@@ -9,22 +9,23 @@ import config from '../config/config';
 export class TokenService {
   private tokenRepository = new TokenRepository();
 
-  async saveToken(data: NewToken): Promise<Token> {
-    return this.tokenRepository.saveToken(data);
+  async createToken(data: NewToken): Promise<Token> {
+    return this.tokenRepository.createToken(data);
   }
 
-  async verifyToken(id: string): Promise<Token | null> {
-    return this.tokenRepository.verifyToken(id);
+  async findTokenById(id: string): Promise<Token | null> {
+    return this.tokenRepository.findTokenById(id);
   }
 
   async deleteToken(id: string): Promise<void> {
     await this.tokenRepository.delete(id);
   }
 
-  generateAuthTokens = async (user: Admin, role: string) => {
+  async generateAuthTokens(user: Admin, role: string) {
     const accessTokenExpires = add(new Date(), {
       minutes: parseInt(config.jwt.accessExpirationMinutes),
     });
+
     const accessToken = generateToken(user.id, accessTokenExpires, TOKEN_TYPE.ACCESS, role);
 
     const refreshTokenExpires = add(new Date(), {
@@ -40,7 +41,7 @@ export class TokenService {
       type: TOKEN_TYPE.REFRESH,
     };
 
-    await this.saveToken(payLoad);
+    //await this.createToken(payLoad);
 
     return {
       access: {
@@ -52,5 +53,5 @@ export class TokenService {
         expires: refreshTokenExpires,
       },
     };
-  };
+  }
 }
