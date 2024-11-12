@@ -13,23 +13,12 @@ provider:
   deploymentBucket:
     blockPublicAccess: true
   environment:
-    CLOUD_STORAGE_BUCKET: ${self:custom.cloudStorage}
     REGION: ${self:custom.region}
-
-  iam:
-    role:
-      statements:
-        - Effect: Allow
-          Action:
-            - S3:GetObject
-            - S3:PutObject
-            - S3:DeleteObject
-          Resource: !Join ['/', [!GetAtt cloudStorageBucket.Arn, '*']]
 
 functions:
   api:
     handler: dist/handler.handler
-    reservedConcurrency: 20
+    reservedConcurrency: 1
     # Provision a minimum number of concurrent instances (default: 0)
     #provisionedConcurrency: 3 # optional, Count of provisioned lambda instances
     events:
@@ -40,25 +29,12 @@ plugins:
 
 custom:
   stage: prod
-  cloudStorage: cloud-storage-${self:custom.stage}
   region: eu-central-1
   serverless-offline:
     httpPort: 7217
     websocketPort: 8218
     lambdaPort: 8219
     noPrependStageInUrl: true
-
-resources:
-  Resources:
-    cloudStorageBucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: ${self:custom.cloudStorage}
-        PublicAccessBlockConfiguration:
-          BlockPublicAcls: true
-          BlockPublicPolicy: true
-          IgnorePublicAcls: true
-          RestrictPublicBuckets: true
 
 package: # Packages each function separately
   patterns:
