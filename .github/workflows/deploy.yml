@@ -25,13 +25,14 @@ jobs:
         with:
           node-version: 18
 
-      # Install dependencies
-      - name: install dependencies
-        run: npm ci
+      # Install dependencies with yarn
+      - name: install dependencies        
+        run: yarn install --frozen-lockfile
+
 
       # Compile TypeScript to JavaScript before deployment
       - name: Compile TypeScript
-        run: npm run compile
+        run: yarn compile
 
       # Deploy with Serverless
       - name: serverless deploy
