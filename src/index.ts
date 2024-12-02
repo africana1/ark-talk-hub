@@ -2,7 +2,7 @@ import { app } from './app';
 import * as http from 'http';
 import config from './modules/config/config';
 import logger from './modules/logger/logger';
-import { io } from './socket.io';
+//import { io } from './socket.io';
 
 // create http server
 const server: http.Server = http.createServer(app);
@@ -11,7 +11,7 @@ const server: http.Server = http.createServer(app);
 const PORT = config.server.port || 5500;
 
 // attach socket.io to the server
-io.attach(server);
+// io.attach(server);
 
 server.listen(PORT, async () => {
   logger.info(`Server is listening on port ${PORT}`);

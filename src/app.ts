@@ -11,6 +11,8 @@ import { ApiError, errorConverter, errorHandler } from './modules/errors';
 import { jwtStrategy } from './modules/auth';
 import routes from './routes';
 
+import { catchAsync } from './modules/utils';
+
 const app: Application = express();
 
 // request logging

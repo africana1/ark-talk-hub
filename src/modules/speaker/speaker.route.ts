@@ -7,11 +7,11 @@ import { authenticateJWT, isAdmin } from '../auth/auth.middleware';
 const router = express.Router();
 
 router.use(authenticateJWT);
-//router.use(isAdmin);
 router
   .get('/', validate(speakerValidation.getSpeakers), speakerController.getSpeakers)
   .post('/', validate(speakerValidation.createSpeaker), speakerController.createSpeaker);
 
+router.use(isAdmin);
 router
   .get('/:id', validate(speakerValidation.getSpeaker), speakerController.getSpeakerById)
   .patch('/:id', validate(speakerValidation.updateSpeaker), speakerController.updateSpeaker)
